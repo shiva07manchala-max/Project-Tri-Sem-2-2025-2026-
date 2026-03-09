@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Corporate Galas | E&M Premium Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- DESIGN TOKENS --- */
+        :root {
+            --peach: #fff5eb;
+            --peach-dark: #fcd5ce;
+            --emerald: #10b981;
+            --navy: #0f172a;
+            --white: #ffffff;
+            --text-slate: #475569;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--peach) 0%, var(--peach-dark) 100%);
+            background-attachment: fixed;
+            color: var(--navy);
+            line-height: 1.6;
+            padding-top: 110px;
+        }
+
+        /* --- NAVIGATION (Masterpiece Style) --- */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            color: var(--white);
+            padding: 1rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .logo-section { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .logo-section img { height: 40px; width: 40px; border-radius: 8px; border: 2px solid var(--emerald); }
+        header h1 { font-size: 1.3rem; color: var(--emerald); font-weight: 800; }
+
+        nav ul { list-style: none; display: flex; gap: 2rem; }
+        nav a { text-decoration: none; color: #cbd5e1; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+        nav a:hover { color: var(--emerald); }
+
+        /* --- HERO SECTION --- */
+        .hero { text-align: center; padding: 40px 20px; max-width: 900px; margin: 0 auto; }
+        .hero h2 { font-size: 2.8rem; font-weight: 900; margin-bottom: 10px; letter-spacing: -1px; }
+        .hero p { color: var(--text-slate); font-weight: 500; }
+
+        /* --- EVENT GRID --- */
+        .container { max-width: 1200px; margin: 0 auto 60px; padding: 0 20px; }
+        .event-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 25px; }
+
+        .corp-card {
+            background: var(--white);
+            border-radius: 28px;
+            padding: 35px;
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+
+        .corp-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08); }
+
+        .badge-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .biz-badge { background: #f1f5f9; color: var(--navy); padding: 5px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; }
+        .status-dot { color: var(--emerald); font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+
+        .corp-card h3 { font-size: 1.5rem; margin-bottom: 15px; font-weight: 800; color: var(--navy); }
+
+        .info-item { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; color: var(--text-slate); font-size: 0.95rem; }
+        .info-item i { color: var(--emerald); width: 20px; }
+
+        .lead-organizer {
+            margin-top: 25px; padding-top: 20px; border-top: 1px dashed #e2e8f0;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .org-avatar { width: 40px; height: 40px; background: var(--navy); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+
+        .none-available {
+            grid-column: 1 / -1; text-align: center; padding: 100px 20px;
+            background: white; border-radius: 32px; border: 2px dashed var(--peach-dark);
+        }
+
+        .cta-btn {
+            display: inline-block; background: var(--navy); color: white;
+            padding: 14px 28px; border-radius: 12px; text-decoration: none;
+            font-weight: 700; transition: 0.3s; margin-top: 20px;
+        }
+        .cta-btn:hover { background: var(--emerald); }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="Home.html" class="logo-section">
+        <img src="EM.jpg" alt="Logo" />
+        <h1>E&M<span style="color:var(--emerald)">.</span></h1>
+    </a>
+    <nav>
+        <ul>
+            <li><a href="Home.html">Home</a></li>
+            <li><a href="Events.html">My Events</a></li>
+            <li><a href="UpdateEvents.html">Create Event</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="hero">
+    <h2>Corporate Galas</h2>
+    <p>Strategic summits and executive networking at the highest level.</p>
+</section>
+
+<main class="container">
+    <div id="authStatus" style="text-align: right; margin-bottom: 20px; font-size: 0.8rem; font-weight: 600; color: var(--text-slate);">
+        Establishing Secure Session...
+    </div>
+
+    <div id="corporateList" class="event-grid">
+        <div class="none-available">
+            <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 2rem; color: var(--emerald);"></i>
+            <p style="margin-top: 15px;">Syncing Executive Database...</p>
+        </div>
+    </div>
+</main>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getDatabase, ref, query, orderByChild, equalTo, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyC-dQz6ZGrF6y-imzaSzKH7zm38C9os6Qc",
+        authDomain: "event-planner-93419.firebaseapp.com",
+        databaseURL: "https://event-planner-93419-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "event-planner-93419",
+        storageBucket: "event-planner-93419.firebasestorage.app",
+        messagingSenderId: "1028172808060",
+        appId: "1:1028172808060:web:2c89bb3f5bfc744ffd2ef9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            document.getElementById('authStatus').innerText = `ACCESS GRANTED: ${user.email}`;
+            initCorporateListener();
+        } else {
+            window.location.href = "Login.html";
+        }
+    });
+
+    function initCorporateListener() {
+        const listDiv = document.getElementById('corporateList');
+        const eventsRef = ref(db, 'all_events');
+        const corporateQuery = query(eventsRef, orderByChild('eventType'), equalTo('Corporate'));
+
+        onValue(corporateQuery, (snapshot) => {
+            listDiv.innerHTML = "";
+            if (!snapshot.exists()) {
+                listDiv.innerHTML = `
+                    <div class="none-available">
+                        <i class="fa-solid fa-briefcase" style="font-size: 3rem; color: var(--peach-dark); margin-bottom: 20px;"></i>
+                        <h3>No Active Galas</h3>
+                        <p>The corporate calendar is currently clear.</p>
+                        <a href="UpdateEvents.html" class="cta-btn">Organize Summit</a>
+                    </div>`;
+                return;
+            }
+
+            const data = snapshot.val();
+            Object.keys(data).forEach(key => {
+                const ev = data[key];
+                const dateObj = new Date(ev.dateTime);
+
+                const card = document.createElement('div');
+                card.className = 'corp-card';
+                card.innerHTML = `
+                    <div class="card-content">
+                        <div class="badge-row">
+                            <span class="biz-badge">Executive Gala</span>
+                            <span class="status-dot"><i class="fa-solid fa-circle"></i> LIVE</span>
+                        </div>
+                        <h3>${ev.eventName}</h3>
+                        <div class="info-item"><i class="fa-solid fa-location-dot"></i> ${ev.venue}</div>
+                        <div class="info-item"><i class="fa-solid fa-calendar"></i> ${dateObj.toLocaleDateString()}</div>
+                        <div class="info-item"><i class="fa-solid fa-clock"></i> ${dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                    </div>
+                    <div class="lead-organizer">
+                        <div class="org-avatar">${ev.organizerName.charAt(0)}</div>
+                        <div>
+                            <p style="font-size: 0.65rem; text-transform: uppercase; color: var(--text-slate);">Lead Coordinator</p>
+                            <p style="font-weight: 700; color: var(--navy);">${ev.organizerName}</p>
+                        </div>
+                    </div>
+                `;
+                listDiv.appendChild(card);
+            });
+        });
+    }
+</script>
+</body>
+</html>

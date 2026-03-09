@@ -1,0 +1,22 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyC-dQz6ZGrF6y-imzaSzKH7zm38C9os6Qc",
+  authDomain: "event-planner-93419.firebaseapp.com",
+  databaseURL: "https://event-planner-93419-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "event-planner-93419",
+  storageBucket: "event-planner-93419.firebasestorage.app",
+  messagingSenderId: "1028172808060",
+  appId: "1:1028172808060:web:2c89bb3f5bfc744ffd2ef9",
+  measurementId: "G-B512HV0YDZ"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);

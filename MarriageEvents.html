@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marriage Registry | E&M Premium Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- DESIGN TOKENS --- */
+        :root {
+            --peach: #fff5eb;
+            --peach-dark: #fcd5ce;
+            --emerald: #10b981;
+            --navy: #0f172a;
+            --white: #ffffff;
+            --rose: #e11d48;
+            --text-slate: #475569;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #fffcf9 0%, #fceae8 100%);
+            background-attachment: fixed;
+            color: var(--navy);
+            line-height: 1.6;
+            padding-top: 110px;
+        }
+
+        /* --- NAVIGATION (Masterpiece Style) --- */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            color: var(--white);
+            padding: 1rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .logo-section { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-section img { height: 40px; width: 40px; border-radius: 8px; border: 2px solid var(--peach-dark); }
+        header h1 { font-size: 1.3rem; color: var(--peach-dark); font-weight: 800; }
+
+        nav ul { list-style: none; display: flex; gap: 2rem; }
+        nav a { text-decoration: none; color: #cbd5e1; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+        nav a:hover { color: var(--peach-dark); }
+
+        /* --- HERO SECTION --- */
+        .marriage-hero {
+            text-align: center;
+            padding: 60px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .marriage-hero h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            color: var(--navy);
+            letter-spacing: -1px;
+        }
+        .marriage-hero p { color: var(--text-slate); font-style: italic; font-size: 1.1rem; }
+
+        /* --- EVENT GRID --- */
+        .container { max-width: 1200px; margin: 0 auto 80px; padding: 0 20px; }
+        .event-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 30px; }
+
+        .marriage-card {
+            background: var(--white);
+            border-radius: 35px;
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid rgba(252, 213, 206, 0.3);
+            box-shadow: 0 15px 40px rgba(252, 213, 206, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; flex-direction: column;
+        }
+
+        .marriage-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px rgba(252, 213, 206, 0.4); }
+
+        .card-visual {
+            background: linear-gradient(45deg, #fff5eb, #fceae8);
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            position: relative;
+        }
+
+        .card-visual::after {
+            content: ""; position: absolute; bottom: 0; width: 100%; height: 40px;
+            background: linear-gradient(transparent, white);
+        }
+
+        .card-body { padding: 30px; padding-top: 10px; }
+        .marriage-card h3 { font-size: 1.6rem; margin-bottom: 15px; font-weight: 800; color: var(--navy); text-align: center; }
+
+        .info-stack { background: #fffcf9; padding: 20px; border-radius: 20px; margin-bottom: 25px; }
+        .info-item { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; color: var(--text-slate); font-size: 0.95rem; }
+        .info-item:last-child { margin-bottom: 0; }
+        .info-item i { color: var(--peach-dark); font-size: 1.1rem; width: 20px; text-align: center; }
+
+        .organizer-footer {
+            margin-top: auto; padding: 20px 30px; background: #fafafa;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .org-info { display: flex; align-items: center; gap: 10px; }
+        .org-init { width: 35px; height: 35px; background: var(--peach-dark); color: var(--rose); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.8rem; }
+
+        .status-pill { background: white; border: 1.5px solid var(--emerald); color: var(--emerald); padding: 4px 12px; border-radius: 100px; font-size: 0.65rem; font-weight: 800; letter-spacing: 1px; }
+
+        .status-box {
+            grid-column: 1 / -1; text-align: center; padding: 100px 20px;
+            background: white; border-radius: 40px; border: 3px dashed var(--peach-dark);
+        }
+
+        .btn-register {
+            display: inline-block; background: var(--navy); color: white;
+            padding: 16px 32px; border-radius: 15px; text-decoration: none;
+            font-weight: 700; transition: 0.3s; margin-top: 25px;
+        }
+        .btn-register:hover { background: var(--rose); transform: scale(1.05); }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="Home.html" class="logo-section">
+        <img src="EM.jpg" alt="Logo" />
+        <h1>E&M<span style="color:var(--peach-dark)"></span></h1>
+    </a>
+    <nav>
+        <ul>
+            <li><a href="Home.html">Home</a></li>
+            <li><a href="Events.html">My Events</a></li>
+            <li><a href="UpdateEvents.html">Create Event</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="marriage-hero">
+
+    <h2>Eternal Unions</h2>
+    <p>Designing the architecture of your most beautiful memories.</p>
+</section>
+
+<main class="container">
+    <div id="authStatus" style="text-align: right; margin-bottom: 20px; font-size: 0.8rem; font-weight: 700; color: var(--peach-dark); text-transform: uppercase; letter-spacing: 1px;">
+        Verifying Secure Registry Connection...
+    </div>
+
+    <div id="marriageList" class="event-grid">
+        <div class="status-box">
+            <i class="fa-solid fa-heart fa-beat" style="font-size: 2.5rem; color: var(--peach-dark);"></i>
+            <p style="margin-top: 20px; font-weight: 600; color: var(--text-slate);">Loading the Marriage Registry...</p>
+        </div>
+    </div>
+</main>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getDatabase, ref, query, orderByChild, equalTo, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyC-dQz6ZGrF6y-imzaSzKH7zm38C9os6Qc",
+        authDomain: "event-planner-93419.firebaseapp.com",
+        databaseURL: "https://event-planner-93419-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "event-planner-93419",
+        storageBucket: "event-planner-93419.firebasestorage.app",
+        messagingSenderId: "1028172808060",
+        appId: "1:1028172808060:web:2c89bb3f5bfc744ffd2ef9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            document.getElementById('authStatus').innerText = `Registry Accessed: ${user.email}`;
+            initMarriageListener();
+        } else {
+            window.location.href = "Login.html";
+        }
+    });
+
+    function initMarriageListener() {
+        const listDiv = document.getElementById('marriageList');
+        const eventsRef = ref(db, 'all_events');
+        const marriageQuery = query(eventsRef, orderByChild('eventType'), equalTo('Wedding'));
+
+        onValue(marriageQuery, (snapshot) => {
+            listDiv.innerHTML = "";
+            if (!snapshot.exists()) {
+                listDiv.innerHTML = `
+                    <div class="status-box">
+                        <i class="fa-solid fa-bell-slash" style="font-size: 3.5rem; color: #eee; margin-bottom: 20px;"></i>
+                        <h3>Empty Registry</h3>
+                        <p>No wedding bells are currently scheduled.</p>
+                        <a href="UpdateEvents.html" class="btn-register">Register New Union</a>
+                    </div>`;
+                return;
+            }
+
+            const data = snapshot.val();
+            Object.keys(data).forEach(key => {
+                const ev = data[key];
+                const dateObj = new Date(ev.dateTime);
+
+                const card = document.createElement('div');
+                card.className = 'marriage-card';
+                card.innerHTML = `
+                    <div class="card-visual">💍</div>
+                    <div class="card-body">
+                        <h3>${ev.eventName}</h3>
+                        <div class="info-stack">
+                            <div class="info-item"><i class="fa-solid fa-map-location-dot"></i> ${ev.venue}</div>
+                            <div class="info-item"><i class="fa-solid fa-calendar-heart"></i> ${dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</div>
+                            <div class="info-item"><i class="fa-solid fa-clock"></i> ${dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                        </div>
+                    </div>
+                    <div class="organizer-footer">
+                        <div class="org-info">
+                            <div class="org-init">${ev.organizerName.charAt(0)}</div>
+                            <span style="font-weight: 700; font-size: 0.85rem;">${ev.organizerName}</span>
+                        </div>
+                        <span class="status-pill">OFFICIAL</span>
+                    </div>
+                `;
+                listDiv.appendChild(card);
+            });
+        });
+    }
+</script>
+</body>
+</html>

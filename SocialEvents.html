@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Social Gatherings | E&M Premium Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- DESIGN TOKENS --- */
+        :root {
+            --peach: #fff5eb;
+            --emerald: #10b981;
+            --emerald-dark: #059669;
+            --navy: #0f172a;
+            --white: #ffffff;
+            --slate: #64748b;
+            --glass: rgba(255, 255, 255, 0.9);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+            background-attachment: fixed;
+            color: var(--navy);
+            padding-top: 100px;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 1rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .logo-section { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; }
+        .logo-section img { height: 40px; width: 40px; border-radius: 10px; border: 2px solid var(--emerald); }
+
+        nav ul { list-style: none; display: flex; gap: 20px; }
+        nav a { color: #cbd5e1; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+        nav a:hover { color: var(--emerald); }
+
+        /* --- HERO SECTION --- */
+        .social-hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: transparent;
+        }
+        .social-hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 10px; }
+        .social-hero p { color: var(--slate); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 80px; }
+
+        /* --- SOCIAL CARDS --- */
+        .event-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
+
+        .social-card {
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; flex-direction: column;
+        }
+        .social-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(16, 185, 129, 0.1); }
+
+        .card-header {
+            background: linear-gradient(to right, var(--emerald), var(--emerald-dark));
+            padding: 15px 25px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .community-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white; padding: 4px 12px; border-radius: 100px;
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+        }
+
+        .card-body { padding: 30px; flex-grow: 1; }
+        .card-body h2 { font-size: 1.5rem; margin-bottom: 20px; color: var(--navy); }
+
+        .detail-item {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 12px; color: var(--slate); font-size: 0.95rem;
+        }
+        .detail-item i { color: var(--emerald); width: 20px; text-align: center; }
+
+        .organizer-footer {
+            padding: 20px 30px; background: #f8fafc;
+            border-top: 1px solid #f1f5f9;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .org-avatar {
+            width: 40px; height: 40px; border-radius: 12px;
+            background: var(--navy); color: var(--emerald);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 0.9rem;
+        }
+
+        /* --- STATUS BOXES --- */
+        .status-box {
+            grid-column: 1 / -1; text-align: center; padding: 100px 20px;
+            background: var(--white); border-radius: 30px; border: 2px dashed var(--emerald);
+        }
+        .cta-button {
+            display: inline-block; background: var(--navy); color: white;
+            padding: 14px 28px; border-radius: 12px; text-decoration: none;
+            font-weight: 700; margin-top: 20px; transition: 0.3s;
+        }
+        .cta-button:hover { background: var(--emerald); transform: scale(1.05); }
+
+        #authStatus { margin-bottom: 20px; font-weight: 700; font-size: 0.75rem; color: var(--emerald); letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="Home.html" class="logo-section">
+        <img src="EM.jpg" alt="Logo">
+        <h1>E&M<span style="color:var(--emerald)"></span></h1>
+    </a>
+    <nav>
+        <ul>
+            <li><a href="Home.html">Home</a></li>
+            <li><a href="Events.html">My Events</a></li>
+            <li><a href="UpdateEvents.html">Create Event</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="social-hero">
+    <h1>Connect & Celebrate</h1>
+    <p>Premium community meetups, professional networking mixers, and localized social gatherings.</p>
+</section>
+
+<main class="container">
+    <div id="authStatus" style="text-align: right;">
+        <i class="fa-solid fa-circle-notch fa-spin"></i> SECURING SESSION...
+    </div>
+
+    <div id="socialList" class="event-grid">
+        <div class="status-box">
+            <i class="fa-solid fa-users fa-bounce" style="font-size: 3rem; color: var(--emerald); margin-bottom: 20px;"></i>
+            <p>Scanning the network for meetups...</p>
+        </div>
+    </div>
+</main>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getDatabase, ref, query, orderByChild, equalTo, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyC-dQz6ZGrF6y-imzaSzKH7zm38C9os6Qc",
+        authDomain: "event-planner-93419.firebaseapp.com",
+        databaseURL: "https://event-planner-93419-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "event-planner-93419",
+        storageBucket: "event-planner-93419.firebasestorage.app",
+        messagingSenderId: "1028172808060",
+        appId: "1:1028172808060:web:2c89bb3f5bfc744ffd2ef9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            document.getElementById('authStatus').innerHTML = `<i class="fa-solid fa-shield-check"></i> SECURE ACCESS: ${user.email.toUpperCase()}`;
+            initSocialListener();
+        } else {
+            window.location.href = "Login.html";
+        }
+    });
+
+    function initSocialListener() {
+        const listDiv = document.getElementById('socialList');
+        const eventsRef = ref(db, 'all_events');
+        const socialQuery = query(eventsRef, orderByChild('eventType'), equalTo('Social'));
+
+        onValue(socialQuery, (snapshot) => {
+            listDiv.innerHTML = "";
+            if (!snapshot.exists()) {
+                listDiv.innerHTML = `
+                    <div class="status-box">
+                        <i class="fa-solid fa-handshake-slash" style="font-size: 3.5rem; color: #e2e8f0; margin-bottom: 20px;"></i>
+                        <h3>No Socials Found</h3>
+                        <p>The community is quiet right now. Why not lead the way?</p>
+                        <a href="UpdateEvents.html" class="cta-button">Host a Meetup</a>
+                    </div>`;
+                return;
+            }
+
+            const data = snapshot.val();
+            Object.keys(data).forEach(key => {
+                const ev = data[key];
+                const dateObj = new Date(ev.dateTime);
+
+                const card = document.createElement('div');
+                card.className = 'social-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="community-badge">Verified Social</span>
+                        <i class="fa-solid fa-star" style="color: white; font-size: 0.8rem;"></i>
+                    </div>
+                    <div class="card-body">
+                        <h2>${ev.eventName}</h2>
+                        <div class="detail-item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>${ev.venue}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <span>${dateObj.toLocaleDateString('en-US', { weekday: 'short', month: 'long', day: 'numeric' })}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fa-solid fa-clock"></i>
+                            <span>${dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                        </div>
+                    </div>
+                    <div class="organizer-footer">
+                        <div class="org-avatar">${ev.organizerName.charAt(0).toUpperCase()}</div>
+                        <div>
+                            <p style="font-size: 0.65rem; color: var(--slate); font-weight: 800; text-transform: uppercase;">Host</p>
+                            <p style="font-weight: 700; font-size: 0.9rem;">${ev.organizerName}</p>
+                        </div>
+                    </div>
+                `;
+                listDiv.appendChild(card);
+            });
+        });
+    }
+</script>
+</body>
+</html>

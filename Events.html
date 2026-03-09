@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Dashboard | E&M Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --peach: #fff5eb;
+            --peach-dark: #fcd5ce;
+            --emerald: #10b981;
+            --navy: #0f172a;
+            --white: #ffffff;
+            --rose: #e11d48;
+            --slate: #64748b;
+            --glass: rgba(255, 255, 255, 0.95);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--peach) 0%, var(--peach-dark) 100%);
+            background-attachment: fixed;
+            color: var(--navy);
+            padding-top: 100px;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 1rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .logo-section { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; }
+        .logo-section img { height: 40px; width: 40px; border-radius: 8px; border: 2px solid var(--emerald); }
+
+        nav a { color: #cbd5e1; text-decoration: none; margin-left: 20px; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+        nav a:hover, nav a.active { color: var(--emerald); }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- DASHBOARD HEADER --- */
+        .dash-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 40px;
+        }
+        .dash-header h2 { font-size: 2rem; font-weight: 800; letter-spacing: -1px; }
+
+        /* --- EVENT CARDS --- */
+        .event-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 25px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        .event-card:hover { transform: translateY(-5px); }
+
+        .event-info .id-tag {
+            font-size: 0.7rem; font-weight: 800; background: #f1f5f9;
+            padding: 4px 12px; border-radius: 100px; color: var(--slate);
+            text-transform: uppercase; margin-bottom: 12px; display: inline-block;
+        }
+
+        .event-info h3 { font-size: 1.5rem; margin-bottom: 8px; color: var(--navy); }
+        .event-meta { display: flex; gap: 20px; color: var(--slate); font-size: 0.95rem; }
+        .event-meta span { display: flex; align-items: center; gap: 6px; }
+
+        .status-section { text-align: right; }
+        .status-badge {
+            background: #ecfdf5; color: var(--emerald);
+            padding: 6px 16px; border-radius: 100px;
+            font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
+        }
+
+        .btn-manage {
+            background: var(--navy); color: white; border: none;
+            padding: 12px 24px; border-radius: 12px; cursor: pointer;
+            font-weight: 700; font-size: 0.85rem; margin-top: 15px;
+            transition: 0.3s; display: flex; align-items: center; gap: 8px;
+        }
+        .btn-manage:hover { background: var(--emerald); box-shadow: 0 8px 15px rgba(16, 185, 129, 0.2); }
+
+        /* --- PREMIUM MODAL --- */
+        .modal {
+            display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px);
+            align-items: center; justify-content: center;
+        }
+        .modal-content {
+            background: white; padding: 40px; border-radius: 32px; width: 95%; max-width: 500px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .modal-content h2 { font-size: 1.8rem; margin-bottom: 25px; font-weight: 800; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--slate); margin-bottom: 8px; text-transform: uppercase; }
+        .modal-content input {
+            width: 100%; padding: 14px; border: 2px solid #f1f5f9;
+            border-radius: 12px; font-family: inherit; font-weight: 600;
+        }
+        .modal-content input:focus { outline: none; border-color: var(--emerald); }
+
+        .modal-actions { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-top: 30px; }
+        .btn-save { background: var(--emerald); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: 800; }
+        .btn-cancel { background: #fee2e2; color: var(--rose); border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: 800; }
+        .btn-close { background: none; color: var(--slate); font-weight: 600; border: none; width: 100%; margin-top: 15px; cursor: pointer; text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .event-card { grid-template-columns: 1fr; gap: 20px; }
+            .status-section { text-align: left; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="Home.html" class="logo-section">
+        <img src="EM.jpg" alt="Logo">
+        <h1 style="margin-left:10px; font-size: 1.2rem;">E&M Dashboard</h1>
+    </a>
+    <nav>
+        <a href="Home.html">Home</a>
+        <a href="Events.html" class="active">Registry</a>
+        <a href="UpdateEvents.html">Create</a>
+        <a href="About.html">About</a>
+    </nav>
+</header>
+
+<main class="container">
+    <div class="dash-header">
+        <h2>Secured Events</h2>
+        <p id="userWelcome" style="font-size: 0.85rem; color: var(--slate); font-weight: 600;"></p>
+    </div>
+
+    <div id="eventList">
+        <div style="text-align: center; padding: 50px;">
+            <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 2rem; color: var(--emerald);"></i>
+            <p style="margin-top: 15px; color: var(--slate);">Syncing Records...</p>
+        </div>
+    </div>
+</main>
+
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <h2>Edit Event</h2>
+        <input type="hidden" id="editKey">
+
+        <div class="form-group">
+            <label>Event Title</label>
+            <input type="text" id="editName">
+        </div>
+
+        <div class="form-group">
+            <label>Location / Venue</label>
+            <input type="text" id="editVenue">
+        </div>
+
+        <div class="form-group">
+            <label>Scheduling</label>
+            <input type="datetime-local" id="editDateTime">
+        </div>
+
+        <div class="modal-actions">
+            <button class="btn-save" id="btnUpdateSave">Save Changes</button>
+            <button class="btn-cancel" id="btnDeleteEvent">Delete</button>
+        </div>
+        <button class="btn-close" onclick="closeModal()">Dismiss without saving</button>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getDatabase, ref, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyC-dQz6ZGrF6y-imzaSzKH7zm38C9os6Qc",
+        authDomain: "event-planner-93419.firebaseapp.com",
+        databaseURL: "https://event-planner-93419-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "event-planner-93419",
+        storageBucket: "event-planner-93419.firebasestorage.app",
+        messagingSenderId: "1028172808060",
+        appId: "1:1028172808060:web:2c89bb3f5bfc744ffd2ef9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    let currentUserEmail = "";
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            currentUserEmail = user.email;
+            document.getElementById('userWelcome').innerText = `Active: ${user.email}`;
+            loadEvents();
+        } else {
+            window.location.href = "Login.html";
+        }
+    });
+
+    function loadEvents() {
+        const eventsRef = ref(db, 'all_events');
+        onValue(eventsRef, (snapshot) => {
+            const data = snapshot.val();
+            const list = document.getElementById('eventList');
+            list.innerHTML = "";
+
+            if (!data) {
+                list.innerHTML = `
+                <div style="text-align: center; padding: 100px; background: white; border-radius: 32px; border: 2px dashed var(--peach-dark);">
+                    <i class="fa-solid fa-calendar-xmark" style="font-size: 3rem; color: var(--peach-dark); margin-bottom: 20px;"></i>
+                    <h3>No Events Recorded</h3>
+                    <a href="UpdateEvents.html" style="color: var(--emerald); font-weight: 700;">Create the first one here</a>
+                </div>`;
+                return;
+            }
+
+            Object.keys(data).forEach(key => {
+                const ev = data[key];
+                const isOwner = ev.email === currentUserEmail;
+                const eventDate = new Date(ev.dateTime);
+
+                const card = document.createElement('div');
+                card.className = 'event-card';
+                card.innerHTML = `
+                    <div class="event-info">
+                        <span class="id-tag">${ev.eventID || 'Registry-Item'}</span>
+                        <h3>${ev.eventName}</h3>
+                        <div class="event-meta">
+                            <span><i class="fa-solid fa-location-dot"></i> ${ev.venue}</span>
+                            <span><i class="fa-solid fa-clock"></i> ${eventDate.toLocaleDateString()} ${eventDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                        </div>
+                    </div>
+                    <div class="status-section">
+                        <span class="status-badge"><i class="fa-solid fa-check-double"></i> ${ev.status}</span>
+                        <p style="margin-top: 10px; font-weight: 800; font-size: 0.75rem; color: var(--navy);">Org: ${ev.organizerName}</p>
+                        ${isOwner ?
+                    `<button class="btn-manage" onclick="openEditModal('${key}', '${ev.eventName}', '${ev.venue}', '${ev.dateTime}')">
+                                <i class="fa-solid fa-sliders"></i> Manage
+                             </button>` :
+                    `<p style="font-size: 0.65rem; color: var(--slate); font-weight: 700; margin-top: 15px;">READ-ONLY ACCESS</p>`}
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        });
+    }
+
+    window.openEditModal = (key, name, venue, time) => {
+        document.getElementById('editKey').value = key;
+        document.getElementById('editName').value = name;
+        document.getElementById('editVenue').value = venue;
+        document.getElementById('editDateTime').value = time;
+        document.getElementById('editModal').style.display = 'flex';
+    };
+
+    window.closeModal = () => {
+        document.getElementById('editModal').style.display = 'none';
+    };
+
+    document.getElementById('btnUpdateSave').addEventListener('click', async () => {
+        const key = document.getElementById('editKey').value;
+        const updatedData = {
+            eventName: document.getElementById('editName').value,
+            venue: document.getElementById('editVenue').value,
+            dateTime: document.getElementById('editDateTime').value,
+            lastModified: new Date().toISOString()
+        };
+
+        try {
+            await update(ref(db, 'all_events/' + key), updatedData);
+            closeModal();
+        } catch (e) { alert("Update Failed: " + e.message); }
+    });
+
+    document.getElementById('btnDeleteEvent').addEventListener('click', async () => {
+        const key = document.getElementById('editKey').value;
+        if(confirm("Confirm permanent deletion of this event?")) {
+            try {
+                await remove(ref(db, 'all_events/' + key));
+                closeModal();
+            } catch (e) { alert("Deletion Failed: " + e.message); }
+        }
+    });
+</script>
+</body>
+</html>

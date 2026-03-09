@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Private Parties | E&M Premium Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- DESIGN TOKENS --- */
+        :root {
+            --peach: #fff5eb;
+            --peach-dark: #fcd5ce;
+            --emerald: #10b981;
+            --navy: #0f172a;
+            --white: #ffffff;
+            --rose: #e11d48;
+            --rose-light: #fff1f2;
+            --text-slate: #475569;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #fff5f5 0%, #fff1f2 100%);
+            background-attachment: fixed;
+            color: var(--navy);
+            line-height: 1.6;
+            padding-top: 110px;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            color: var(--white);
+            padding: 1rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        }
+
+        .logo-section { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-section img { height: 40px; width: 40px; border-radius: 12px; border: 2px solid var(--rose); }
+        header h1 { font-size: 1.3rem; color: var(--rose); font-weight: 800; letter-spacing: -0.5px; }
+
+        nav ul { list-style: none; display: flex; gap: 2rem; }
+        nav a { text-decoration: none; color: #e2e8f0; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+        nav a:hover { color: var(--rose); }
+
+        /* --- HERO SECTION --- */
+        .party-hero {
+            text-align: center;
+            padding: 50px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .party-hero h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: var(--navy);
+            letter-spacing: -1.5px;
+        }
+        .party-hero p { color: var(--rose); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; }
+
+        /* --- EVENT GRID --- */
+        .container { max-width: 1200px; margin: 0 auto 80px; padding: 0 20px; }
+        .event-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 30px; }
+
+        .party-card {
+            background: var(--white);
+            border-radius: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(225, 29, 72, 0.05);
+            box-shadow: 0 20px 40px rgba(225, 29, 72, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; flex-direction: column;
+            position: relative;
+        }
+
+        .party-card:hover { transform: scale(1.03); box-shadow: 0 30px 60px rgba(225, 29, 72, 0.12); }
+
+        .card-top {
+            background: var(--rose);
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .card-body { padding: 35px; }
+        .party-card h3 { font-size: 1.6rem; margin-bottom: 20px; font-weight: 800; color: var(--navy); }
+
+        .info-pill {
+            background: var(--rose-light);
+            padding: 12px 18px;
+            border-radius: 18px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--rose);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .info-pill i { font-size: 1.1rem; width: 20px; }
+
+        .host-section {
+            margin-top: 20px; padding-top: 25px; border-top: 2px solid var(--rose-light);
+            display: flex; align-items: center; gap: 15px;
+        }
+        .host-avatar {
+            width: 45px; height: 45px; background: var(--navy); color: white;
+            border-radius: 15px; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; border: 2px solid var(--rose);
+        }
+
+        .status-box {
+            grid-column: 1 / -1; text-align: center; padding: 100px 20px;
+            background: white; border-radius: 40px; border: 2px dashed var(--rose);
+        }
+
+        .btn-create {
+            display: inline-block; background: var(--rose); color: white;
+            padding: 16px 35px; border-radius: 18px; text-decoration: none;
+            font-weight: 800; transition: 0.3s; margin-top: 25px;
+            box-shadow: 0 10px 20px rgba(225, 29, 72, 0.2);
+        }
+        .btn-create:hover { background: var(--navy); transform: translateY(-3px); }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="Home.html" class="logo-section">
+        <img src="EM.jpg" alt="Logo" />
+        <h1>E&M<span style="color:var(--white)"></span></h1>
+    </a>
+    <nav>
+        <ul>
+            <li><a href="Home.html">Home</a></li>
+            <li><a href="Events.html">My Events</a></li>
+            <li><a href="UpdateEvents.html">Create Event</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="party-hero">
+    <h2>Let's Celebrate</h2>
+    <p>Birthdays • Anniversaries • Private Socials</p>
+</section>
+
+<main class="container">
+    <div id="authStatus" style="text-align: right; margin-bottom: 20px; font-size: 0.75rem; font-weight: 800; color: var(--rose); text-transform: uppercase;">
+        <i class="fa-solid fa-shield-halved"></i> Secure Guest List Connection
+    </div>
+
+    <div id="partyList" class="event-grid">
+        <div class="status-box">
+            <i class="fa-solid fa-spinner fa-spin" style="font-size: 2.5rem; color: var(--rose);"></i>
+            <p style="margin-top: 20px; font-weight: 600; color: var(--text-slate);">Gathering your private events...</p>
+        </div>
+    </div>
+</main>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getDatabase, ref, query, orderByChild, equalTo, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyC-dQz6ZGrF6y-imzaSzKH7zm38C9os6Qc",
+        authDomain: "event-planner-93419.firebaseapp.com",
+        databaseURL: "https://event-planner-93419-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "event-planner-93419",
+        storageBucket: "event-planner-93419.firebasestorage.app",
+        messagingSenderId: "1028172808060",
+        appId: "1:1028172808060:web:2c89bb3f5bfc744ffd2ef9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            document.getElementById('authStatus').innerHTML = `<i class="fa-solid fa-user-check"></i> Hosting as: ${user.email}`;
+            listenToParties();
+        } else {
+            window.location.href = "Login.html";
+        }
+    });
+
+    function listenToParties() {
+        const listDiv = document.getElementById('partyList');
+        const eventsRef = ref(db, 'all_events');
+        const partyQuery = query(eventsRef, orderByChild('eventType'), equalTo('Party'));
+
+        onValue(partyQuery, (snapshot) => {
+            listDiv.innerHTML = "";
+            if (!snapshot.exists()) {
+                listDiv.innerHTML = `
+                    <div class="status-box">
+                        <i class="fa-solid fa-cake-candles" style="font-size: 3.5rem; color: #fee2e2; margin-bottom: 20px;"></i>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 10px;">The Party hasn't started</h3>
+                        <p>No private social events are currently listed.</p>
+                        <a href="UpdateEvents.html" class="btn-create">Start Planning</a>
+                    </div>`;
+                return;
+            }
+
+            const data = snapshot.val();
+            Object.keys(data).forEach(key => {
+                const ev = data[key];
+                const dateObj = new Date(ev.dateTime);
+
+                const card = document.createElement('div');
+                card.className = 'party-card';
+                card.innerHTML = `
+                    <div class="card-top">
+                        <span><i class="fa-solid fa-bolt"></i> PRIVATE PARTY</span>
+                        <span style="background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 8px;">CONFIRMED</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>${ev.eventName}</h3>
+                        <div class="info-pill"><i class="fa-solid fa-map-pin"></i> ${ev.venue}</div>
+                        <div class="info-pill"><i class="fa-solid fa-calendar-days"></i> ${dateObj.toLocaleDateString()}</div>
+                        <div class="info-pill"><i class="fa-solid fa-clock"></i> ${dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+
+                        <div class="host-section">
+                            <div class="host-avatar">${ev.organizerName.charAt(0)}</div>
+                            <div>
+                                <p style="font-size: 0.65rem; text-transform: uppercase; color: var(--text-slate); font-weight: 800;">Party Host</p>
+                                <p style="font-weight: 700; color: var(--navy);">${ev.organizerName}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                listDiv.appendChild(card);
+            });
+        });
+    }
+</script>
+</body>
+</html>

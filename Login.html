@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | E&M Premium Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- DESIGN TOKENS --- */
+        :root {
+            --peach: #fff5eb;
+            --peach-dark: #fcd5ce;
+            --emerald: #10b981;
+            --navy: #0f172a;
+            --white: #ffffff;
+            --rose: #e11d48;
+            --text-slate: #475569;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--navy) 0%, #1e293b 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--navy);
+            overflow: hidden;
+        }
+
+        /* --- DECORATIVE BACKGROUND ELEMENTS --- */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(var(--peach), var(--peach-dark));
+            z-index: 1;
+            filter: blur(80px);
+            opacity: 0.4;
+        }
+
+        /* --- AUTH CARD --- */
+        .auth-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 50px;
+            border-radius: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-img {
+            height: 70px;
+            width: 70px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+            object-fit: cover;
+            border: 3px solid var(--emerald);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+        }
+
+        h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -1px; }
+        p.subtitle { color: var(--text-slate); margin-bottom: 35px; font-size: 0.95rem; }
+
+        /* --- FORM STYLING --- */
+        .form-group { text-align: left; margin-bottom: 20px; }
+        label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--text-slate);
+            margin-bottom: 8px;
+            margin-left: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 15px;
+            border: 2px solid #f1f5f9;
+            background: #f8fafc;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--emerald);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: var(--navy);
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-primary:hover {
+            background: var(--emerald);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+        }
+
+        #message {
+            background: #fee2e2;
+            color: var(--rose);
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .footer-link {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: var(--text-slate);
+        }
+
+        .footer-link a {
+            color: var(--emerald);
+            font-weight: 700;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-circle" style="width: 400px; height: 400px; top: -100px; left: -100px;"></div>
+<div class="bg-circle" style="width: 300px; height: 300px; bottom: -50px; right: -50px;"></div>
+
+<div class="auth-card">
+
+    <img src="EM.jpg" alt="E&M Logo" class="logo-img">
+    <h1>Welcome Back</h1>
+    <p class="subtitle">Secure access to your E&M dashboard</p>
+
+    <div id="message"></div>
+
+    <form id="loginForm">
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="email" placeholder="name@company.com" required>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-primary">Sign In to System</button>
+    </form>
+
+    <p class="footer-link">
+        New to the Group? <a href="Signup.html">Create Account</a>
+    </p>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyC-dQz6ZGrF6y-imzaSzKH7zm38C9os6Qc",
+        authDomain: "event-planner-93419.firebaseapp.com",
+        databaseURL: "https://event-planner-93419-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "event-planner-93419",
+        storageBucket: "event-planner-93419.firebasestorage.app",
+        messagingSenderId: "1028172808060",
+        appId: "1:1028172808060:web:2c89bb3f5bfc744ffd2ef9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const loginForm = document.getElementById('loginForm');
+    const msgDiv = document.getElementById('message');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Visual feedback
+        const btn = loginForm.querySelector('button');
+        btn.innerText = "Authenticating...";
+        btn.style.opacity = "0.7";
+
+        signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
+            .then(() => {
+                window.location.href = "Home.html";
+            })
+            .catch((error) => {
+                btn.innerText = "Sign In to System";
+                btn.style.opacity = "1";
+                msgDiv.style.display = "block";
+
+                // User-friendly error messages
+                if(error.code === 'auth/invalid-credential') {
+                    msgDiv.innerText = "Invalid email or password.";
+                } else {
+                    msgDiv.innerText = "Access Denied: " + error.message;
+                }
+            });
+    });
+</script>
+</body>
+</html>
